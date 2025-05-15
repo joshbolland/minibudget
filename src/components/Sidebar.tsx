@@ -1,6 +1,6 @@
 'use client';
 
-import { LayoutDashboard, CreditCard, PieChart, Wallet, List, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, CreditCard, PieChart, Wallet, List, Settings, LogOut, User } from 'lucide-react';
 import { useAuthStore } from '../store/useAppStore';
 import Link from 'next/link';
 
@@ -13,7 +13,9 @@ export default function Sidebar() {
                 <span className="font-bold text-lg">minibudget</span>
             </div>
             <div className="px-6 py-6 text-center border-b border-white/10">
-                <div className="w-16 h-16 rounded-full bg-white/20 mx-auto mb-2" />
+                <div className="w-16 h-16 rounded-full bg-white/20 mx-auto mb-2 flex items-center justify-center">
+                    <User className="w-6 h-6 text-white/70" />
+                </div>
                 <div className="text-sm">{fullName}</div>
             </div>
             <nav className="flex-1 px-4 py-6 space-y-3 text-sm">

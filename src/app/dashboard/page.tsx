@@ -4,6 +4,8 @@ import { useAuthStore } from '../../store/useAppStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import SpendingSummary from '../../components/SpendingSummary';
+import RecentTransactions from '../../components/RecentTransactions';
+import AccountsSummary from '../../components/AccountsSummary';
 
 export default function Dashboard() {
     const { isAuthenticated, loading, fullName } = useAuthStore();
@@ -32,18 +34,27 @@ export default function Dashboard() {
     const firstName = fullName.split(' ')[0];
 
     return (
-        <main className=" p-8 bg-[#f9fafb]">
+        <main className="p-8 bg-[#f9fafb]">
+            {/* Greeting + To Be Budgeted */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                 <div>
                     <h1 className="text-2xl font-bold text-[#4f46e5]">Hey {firstName}! Let&#39;s budget.</h1>
                     <p className="text-sm text-[#6b7280]">{today}</p>
                 </div>
                 <div className="bg-[#4f46e5] text-white px-6 py-4 rounded-md shadow text-center flex">
-                    <p className="text-xs uppercase mb-1 tracking-wide text-white/70">To Be <br></br>Budgeted</p>
+                    <p className="text-xs uppercase mb-1 tracking-wide text-white/70">To Be <br />Budgeted</p>
                     <p className="text-2xl ml-4 font-semibold">£1,242.50</p>
                 </div>
             </div>
-            <SpendingSummary />
+
+            {/* Summary Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <SpendingSummary />
+                <AccountsSummary />
+            </div>
+
+            {/* Transactions */}
+            <RecentTransactions />
         </main>
     );
 }
