@@ -1,8 +1,9 @@
 import { create } from 'zustand';
-import { fetchAuthSession, signIn, signOut, signUp, getCurrentUser, confirmSignUp as confirmSignUpAmplify, resendSignUpCode, fetchUserAttributes } from 'aws-amplify/auth';
+import { signIn, signOut, signUp, getCurrentUser, confirmSignUp as confirmSignUpAmplify, resendSignUpCode, fetchUserAttributes } from 'aws-amplify/auth';
+import type { AuthUser } from 'aws-amplify/auth';
 
 interface AuthState {
-    user: any | null;
+    user: AuthUser | null;
     isAuthenticated: boolean;
     loading: boolean;
     message: string;
@@ -50,8 +51,12 @@ export const useAuthStore = create<AuthState>((set) => ({
                 loading: false,
                 fullName,
             });
-        } catch (err: any) {
-            set({ message: err.message || 'Login failed', loading: false });
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                set({ message: err.message || 'Login failed', loading: false });
+            } else {
+                set({ message: 'Login failed', loading: false });
+            }
         }
     },
 
@@ -70,8 +75,12 @@ export const useAuthStore = create<AuthState>((set) => ({
                 },
             });
             set({ message: 'Sign-up successful. Please check your email.', needsConfirmation: true, loading: false });
-        } catch (err: any) {
-            set({ message: err.message || 'Sign-up failed', loading: false });
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                set({ message: err.message || 'Sign-up failed', loading: false });
+            } else {
+                set({ message: 'Sign-up failed', loading: false });
+            }
         }
     },
 
@@ -89,8 +98,12 @@ export const useAuthStore = create<AuthState>((set) => ({
                 message: 'Account confirmed and logged in.',
                 fullName,
             });
-        } catch (err: any) {
-            set({ message: err.message || 'Confirmation failed' });
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                set({ message: err.message || 'Confirmation failed' });
+            } else {
+                set({ message: 'Confirmation failed' });
+            }
         }
     },
 
@@ -98,8 +111,12 @@ export const useAuthStore = create<AuthState>((set) => ({
         try {
             await resendSignUpCode({ username: email });
             set({ message: 'Confirmation code resent. Please check your email.' });
-        } catch (err: any) {
-            set({ message: err.message || 'Failed to resend code.' });
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                set({ message: err.message || 'Failed to resend code.' });
+            } else {
+                set({ message: 'Failed to resend code.' });
+            }
         }
     },
 

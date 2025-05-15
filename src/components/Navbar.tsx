@@ -4,8 +4,7 @@ import { useAuthStore } from '../store/useAppStore';
 import { User, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function Navbar() {
-    const { logout, fullName } = useAuthStore();
-    const firstName = fullName.split(' ')[0];
+    const { logout } = useAuthStore();
 
     return (
         <nav className="bg-[#f9fafb] shadow-sm">
