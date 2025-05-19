@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuthStore } from '../store/useAppStore';
+import { useAppStore } from '../store/useAppStore';
 
 export default function AuthForm() {
     const [email, setEmail] = useState('');
@@ -23,7 +23,7 @@ export default function AuthForm() {
         loading,
         isAuthenticated,
         needsConfirmation,
-    } = useAuthStore();
+    } = useAppStore();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -67,8 +67,7 @@ export default function AuthForm() {
                             <label htmlFor="firstName" className="text-sm font-medium text-[#111827]">First Name</label>
                             <input
                                 className="w-full p-2 border rounded text-[#111827]"
-                                id='fi
-                                '
+                                id='firstName'
                                 type="text"
                                 placeholder="First name"
                                 value={firstName}

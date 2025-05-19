@@ -1,11 +1,11 @@
 'use client';
 
 import { LayoutDashboard, CreditCard, PieChart, Wallet, List, Settings, LogOut, User } from 'lucide-react';
-import { useAuthStore } from '../store/useAppStore';
+import { useAppStore } from '../store/useAppStore';
 import Link from 'next/link';
 
 export default function Sidebar() {
-    const { logout, fullName } = useAuthStore();
+    const { logout, fullName } = useAppStore();
 
     return (
         <aside className="w-64 bg-[#4f46e5] text-white flex flex-col h-screen">
@@ -27,7 +27,7 @@ export default function Sidebar() {
                 <SidebarLink icon={Settings} label="Settings" />
             </nav>
             <div className="px-4 py-4 border-t border-white/10">
-                <button onClick={logout} className="flex items-center gap-2 text-sm text-white hover:text-red-300">
+                <button onClick={logout} className="flex items-center gap-2 text-sm text-white hover:text-red-300 cursor-pointer">
                     <LogOut className="w-4 h-4" />
                     Sign out
                 </button>

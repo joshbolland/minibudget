@@ -1,14 +1,17 @@
 'use client';
 
-import { useAuthStore } from '../../store/useAppStore';
+import { useAppStore } from '../../store/useAppStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import SpendingSummary from '../../components/SpendingSummary';
 import RecentTransactions from '../../components/RecentTransactions';
 import AccountsSummary from '../../components/AccountsSummary';
+import BudgetCategories from '../../components/BudgetCategories';
 
 export default function Dashboard() {
-    const { isAuthenticated, loading, fullName } = useAuthStore();
+    const isAuthenticated = useAppStore((state) => state.isAuthenticated);
+    const loading = useAppStore((state) => state.loading);
+    const fullName = useAppStore((state) => state.fullName);
     const router = useRouter();
 
     useEffect(() => {
@@ -18,6 +21,7 @@ export default function Dashboard() {
     }, [loading, isAuthenticated, router]);
 
     const [today, setToday] = useState('');
+
 
     useEffect(() => {
         const formatted = new Date().toLocaleDateString('en-GB', {
@@ -52,9 +56,15 @@ export default function Dashboard() {
                 <SpendingSummary />
                 <AccountsSummary />
             </div>
+            <div className="mb-6">
 
-            {/* Transactions */}
-            <RecentTransactions />
+                {/* Transactions */}
+                <RecentTransactions />
+            </div>
+
+            {/* Budget Categories */}
+            <BudgetCategories />
+
         </main>
     );
 }

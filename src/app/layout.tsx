@@ -2,7 +2,7 @@
 import { Amplify } from 'aws-amplify';
 import awsExports from '../aws-exports';
 import { useEffect } from 'react';
-import { useAuthStore } from '../store/useAppStore';
+import { useAppStore } from '../store/useAppStore';
 
 Amplify.configure(awsExports);
 
@@ -17,10 +17,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const fetchUser = useAuthStore((state) => state.fetchUser);
+  const fetchUser = useAppStore((state) => state.fetchUser);
 
   useEffect(() => {
-    fetchUser(); // 🔁 Restore Cognito session into Zustand on load
+    fetchUser();
   }, [fetchUser]);
 
   return (
