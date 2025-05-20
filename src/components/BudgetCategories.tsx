@@ -3,6 +3,11 @@
 import React, { useEffect } from 'react';
 import { useAppStore } from '../store/useAppStore';
 
+function getBudgetColor(percent: number): string {
+    const hue = 120 - (percent * 1.2); // 0% = green (120), 100% = red (0)
+    return `hsl(${hue}, 100%, 50%)`;
+}
+
 export default function BudgetCategories() {
     const categories = useAppStore((state) => state.categories);
     const fetchCategories = useAppStore((state) => state.fetchCategories);
@@ -46,8 +51,11 @@ export default function BudgetCategories() {
                                 </div>
                                 <div className="w-full bg-gray-200 rounded h-2 mt-1">
                                     <div
-                                        className="bg-green-500 h-2 rounded"
-                                        style={{ width: `${percent}%` }}
+                                        className="h-2 rounded"
+                                        style={{
+                                            width: `${percent}%`,
+                                            backgroundColor: getBudgetColor(percent),
+                                        }}
                                     />
                                 </div>
                             </li>
