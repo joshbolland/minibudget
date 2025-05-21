@@ -1,12 +1,13 @@
 'use client';
 
-import { useAppStore } from '../../store/useAppStore';
+import { useAppStore } from '@/store/useAppStore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import SpendingSummary from '../../components/SpendingSummary';
-import RecentTransactions from '../../components/RecentTransactions';
-import AccountsSummary from '../../components/AccountsSummary';
-import BudgetCategories from '../../components/BudgetCategories';
+import SpendingSummary from '@/components/dashboard/SpendingSummary';
+import TransactionList from '@/components/TransactionList';
+import AccountsSummary from '@/components/dashboard/AccountsSummary';
+import BudgetCategories from '@/components/dashboard/BudgetCategories';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Dashboard() {
     const isAuthenticated = useAppStore((state) => state.isAuthenticated);
@@ -22,6 +23,14 @@ export default function Dashboard() {
 
     const [today, setToday] = useState('');
 
+    const { data: transactions, isLoading, isError } = useQuery({
+        queryKey: ['transactions'],
+        queryFn: async () => {
+            const res = await fetch('/api/transactions/fetch');
+            if (!res.ok) throw new Error('Failed to fetch');
+            return res.json();
+        },
+    });
 
     useEffect(() => {
         const formatted = new Date().toLocaleDateString('en-GB', {
@@ -58,8 +67,16 @@ export default function Dashboard() {
             </div>
             <div className="mb-6">
 
-                {/* Transactions */}
-                <RecentTransactions />
+                {/* Recent Transactions */}
+                <TransactionList
+                    headingText="Recent Transactions"
+                    showHeading={true}
+                    showViewAll={true}
+                    limit={5}
+                    transactions={transactions}
+                    loading={isLoading}
+                    error={isError}
+                />
             </div>
 
             {/* Budget Categories */}

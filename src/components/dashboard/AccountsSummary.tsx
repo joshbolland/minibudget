@@ -1,7 +1,8 @@
 'use client';
 
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '@/store/useAppStore';
 import { useEffect } from 'react';
+import type { Account } from '@/store/slices/accountSlice';
 
 export default function AccountsSummary() {
 
@@ -26,7 +27,7 @@ export default function AccountsSummary() {
                 </div>
             ) : (
                 <ul className="divide-y divide-gray-200">
-                    {accounts.map(account => (
+                    {accounts.map((account: Account) => (
                         <li key={account.id} className="py-3 flex justify-between items-center">
                             <div className="flex items-center gap-3">
                                 <span className="text-lg">

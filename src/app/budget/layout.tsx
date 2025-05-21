@@ -3,8 +3,8 @@ import Sidebar from '@/components/Sidebar';
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'Dashboard',
-    description: 'minibudget dashboard',
+    title: 'Budget',
+    description: 'minibudget budget',
     icons: {
         icon: '/favicon.ico',
         shortcut: '/favicon.ico',
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     },
 }
 
-export default function DashboardLayout({
+export default function BudgetLayout({
     children,
 }: {
     children: React.ReactNode;

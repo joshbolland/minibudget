@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAppStore } from '../store/useAppStore';
+import { useAppStore } from '@/store/useAppStore';
 
 export default function AuthForm() {
     const [email, setEmail] = useState('');
