@@ -6,12 +6,14 @@ import {
     DeleteCommand,
 } from '@aws-sdk/lib-dynamodb';
 
+import { NextRequest } from 'next/server';
+
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
 const TABLE_NAME = process.env.BUDGET_CATEGORIES_TABLE || 'BudgetCategories';
 
-export async function PATCH(req: Request, context: { params: { id: string } }) {
-    const { id } = context.params;
+export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+    const { id } = params;
     try {
         const body = await req.json();
         const command = new UpdateCommand({
@@ -32,9 +34,8 @@ export async function PATCH(req: Request, context: { params: { id: string } }) {
         return NextResponse.json({ error: 'Failed to update category' }, { status: 500 });
     }
 }
-
-export async function DELETE(_: Request, context: { params: { id: string } }) {
-    const { id } = context.params;
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+    const { id } = params;
     try {
         const command = new DeleteCommand({
             TableName: TABLE_NAME,
