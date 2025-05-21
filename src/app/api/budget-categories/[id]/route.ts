@@ -10,12 +10,13 @@ const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
 const TABLE_NAME = process.env.BUDGET_CATEGORIES_TABLE || 'BudgetCategories';
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, context: { params: { id: string } }) {
+    const { id } = context.params;
     try {
         const body = await req.json();
         const command = new UpdateCommand({
             TableName: TABLE_NAME,
-            Key: { id: params.id },
+            Key: { id },
             UpdateExpression: 'set #name = :name, budget = :budget',
             ExpressionAttributeNames: { '#name': 'name' },
             ExpressionAttributeValues: {
@@ -32,11 +33,12 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
     }
 }
 
-export async function DELETE(_: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_: Request, context: { params: { id: string } }) {
+    const { id } = context.params;
     try {
         const command = new DeleteCommand({
             TableName: TABLE_NAME,
-            Key: { id: params.id },
+            Key: { id },
         });
         await docClient.send(command);
         return NextResponse.json({ success: true });
