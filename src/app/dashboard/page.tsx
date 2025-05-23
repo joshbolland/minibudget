@@ -8,6 +8,7 @@ import TransactionList from '@/components/TransactionList';
 import AccountsSummary from '@/components/dashboard/AccountsSummary';
 import BudgetCategories from '@/components/dashboard/BudgetCategories';
 import { useQuery } from '@tanstack/react-query';
+import { GreetingHeader } from '../../components/dashboard/GreetingHeader';
 
 export default function Dashboard() {
     const isAuthenticated = useAppStore((state) => state.isAuthenticated);
@@ -49,16 +50,11 @@ export default function Dashboard() {
     return (
         <main className="p-8 bg-[#f9fafb]">
             {/* Greeting + To Be Budgeted */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-                <div>
-                    <h1 className="text-2xl font-bold text-[#4f46e5]">Hey {firstName}! Let&#39;s budget.</h1>
-                    <p className="text-sm text-[#6b7280]">{today}</p>
-                </div>
-                <div className="bg-[#4f46e5] text-white px-6 py-4 rounded-md shadow text-center flex">
-                    <p className="text-xs uppercase mb-1 tracking-wide text-white/70">To Be <br />Budgeted</p>
-                    <p className="text-2xl ml-4 font-semibold">£1,242.50</p>
-                </div>
-            </div>
+            <GreetingHeader
+                firstName={firstName}
+                today={today}
+            />
+
 
             {/* Summary Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
@@ -85,3 +81,7 @@ export default function Dashboard() {
         </main>
     );
 }
+
+
+
+
