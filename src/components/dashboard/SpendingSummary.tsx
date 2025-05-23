@@ -27,7 +27,7 @@ export default function SpendingSummary() {
                 <p className="text-3xl font-bold text-[#6366f1]">£{totalBudget.toFixed(2)}</p>
             </div>
             <div className="flex justify-center items-center mb-6 relative w-32 h-32 mx-auto">
-                <svg className="transform -rotate-90" width="128" height="128" viewBox="0 0 100 100">
+                <svg className="transform -rotate-90" role="img" width="128" height="128" viewBox="0 0 100 100">
                     <circle
                         cx="50"
                         cy="50"

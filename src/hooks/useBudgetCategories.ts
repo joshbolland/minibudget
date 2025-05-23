@@ -3,13 +3,7 @@
 'use client';
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-
-export type BudgetCategory = {
-    id: string;
-    name: string;
-    budgeted: number;
-    spent: number;
-};
+import type { BudgetCategory } from '@/types/budget';
 
 async function fetchCategories(): Promise<BudgetCategory[]> {
     const res = await fetch('/api/budget-categories');

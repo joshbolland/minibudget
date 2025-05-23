@@ -1,8 +1,8 @@
 ---
-to: src/components/<%= dir %>/<%= name %>.test.tsx
+to: src/<%= dir %>/<%= name %>.test.tsx
 ---
 import { render, screen } from '@testing-library/react';
-import <%= name %> from '@/components/<%= dir %>/<%= name %>';
+import <%= name %> from '@/<%= dir %>/<%= name %>';
 
 describe('<%= name %>', () => {
   it('renders correctly', () => {

@@ -27,7 +27,7 @@ export default function TransactionList({ headingText = 'Recent Transactions', s
                 </div>
             )}
             {loading ? (
-                <div className="flex items-center justify-center h-32">
+                <div role='status' className="flex items-center justify-center h-32">
                     <svg className="animate-spin h-5 w-5 text-[#4f46e5]" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" strokeWidth="4" stroke="#4f46e5" fill="none"></circle>
                         <path className="opacity-75" fill="#4f46e5" d="M4 12a8 8 0 1 1 16 0A8 8 0 0 1 4 12zm2.5 0a5.5 5.5 0 1 0 11 0A5.5 5.5 0 0 0 6.5 12z"></path>
