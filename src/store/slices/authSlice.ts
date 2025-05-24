@@ -32,8 +32,13 @@ export const createAuthSlice: StateCreator<AuthState, [], [], AuthState> = (set)
             const attributes = await fetchUserAttributes();
             const fullName = `${attributes.given_name ?? ''} ${attributes.family_name ?? ''}`.trim();
             set({ user, isAuthenticated: true, fullName, loading: false });
-        } catch {
-            set({ user: null, isAuthenticated: false, loading: false });
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                set({ user: null, isAuthenticated: false, loading: false });
+            } else {
+                // handle non-Error thrown
+                set({ user: null, isAuthenticated: false, loading: false });
+            }
         }
     },
 
@@ -123,6 +128,8 @@ export const createAuthSlice: StateCreator<AuthState, [], [], AuthState> = (set)
     logout: async () => {
         try {
             await signOut();
+        } catch {
+            // Swallow the error intentionally
         } finally {
             set({ user: null, isAuthenticated: false });
         }
