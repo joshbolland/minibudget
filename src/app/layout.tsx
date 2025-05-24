@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { useAppStore } from '@/store/useAppStore';
 
 import { QueryClientProvider } from '@tanstack/react-query';
-import { queryClient } from '@/lib/queryClient';
+import { createQueryClient } from '@/lib/createQueryClient';
 
 Amplify.configure(awsExports);
 
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="antialiased">
-        <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={createQueryClient()}>
           {children}
         </QueryClientProvider>
       </body>
